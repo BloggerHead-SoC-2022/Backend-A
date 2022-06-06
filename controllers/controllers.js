@@ -1,10 +1,10 @@
-const App = require("../app/model");
+const App = require("../app/usermodel");
 
 // Create and Save a new Message
-const create = (req, res) => {
+const createuser = (req, res) => {
     console.log(req.body);
   const User = new App({
-    name: req.body.name,
+    username: req.body.name,
     email: req.body.email,
     number: req.body.number,  
   });
@@ -16,7 +16,7 @@ const create = (req, res) => {
  };
 
 // Find a single message with a messageId
-const retrieve = (req, res) => {
+const retrieveuser = (req, res) => {
   App.findById(req.params.messageId)
     .then((data) => {
       if (!data) {
@@ -30,11 +30,11 @@ const retrieve = (req, res) => {
 };
 
 // Update a message identified by the messageId in the request
-const update = (req, res) => {
+const updateuser = (req, res) => {
   App.findByIdAndUpdate(
     req.params.messageId,
     {
-        name: req.body.name,
+        username: req.body.name,
         email: req.body.email,
         number: req.body.number,
     },
@@ -52,7 +52,7 @@ const update = (req, res) => {
 };
 
 // Delete a message with the specified messageId in the request
-const deleteMsg = (req, res) => {
+const deleteuser = (req, res) => {
   App.findByIdAndRemove(req.params.messageId)
     .then((data) => {
       if (!data) {
@@ -65,8 +65,8 @@ const deleteMsg = (req, res) => {
 };
 
 module.exports = {
-    create,
-    retrieve,
-    update,
-    deleteMsg
+    createuser,
+    retrieveuser,
+    updateuser,
+    deleteuser
 }

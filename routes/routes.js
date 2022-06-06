@@ -5,9 +5,9 @@ const router = express.Router();
 // router.route('/').post(App.create);
 
 router.route('/users')
-        .post(UserApp.create)
-        .get(UserApp.retrieve)
-        .delete(UserApp.deleteMsg)
-        .put(UserApp.update)
+        .post(UserApp.createuser)
+        .get(UserApp.retrieveuser)
+        .delete(UserApp.deleteuser)
+        .put(UserApp.updateuser)
 
 module.exports = router;
