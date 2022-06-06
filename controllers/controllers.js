@@ -6,7 +6,7 @@ const createuser = (req, res) => {
   const User = new App({
     username: req.body.name,
     email: req.body.email,
-    password: req.body.number,  
+    password: req.body.password,  
   });
   User
     .save()
@@ -36,7 +36,7 @@ const updateuser = (req, res) => {
     {
         username: req.body.name,
         email: req.body.email,
-        password: req.body.number,
+        password: req.body.password,
     },
     { new: true }
   )

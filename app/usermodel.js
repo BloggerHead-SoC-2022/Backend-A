@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
  
-const sedata = mongoose.Schema({
+const userdata = mongoose.Schema({
     username: String,
     email: String,
     password: String,
 });
 
-module.exports = mongoose.model("App", sedata);
+module.exports = mongoose.model("App", userdata);
