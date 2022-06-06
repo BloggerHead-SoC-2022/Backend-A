@@ -19,7 +19,7 @@ app.get('/', (req,res) => {
 
 
 app.use(express.json());
-app.use('/app',AppRoutes);
+app.use('/api',AppRoutes);
 
 app.listen(2010 , () => {
     console.log("Server is running ");
