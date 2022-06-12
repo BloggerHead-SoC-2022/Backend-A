@@ -1,10 +1,10 @@
-const App = require("../app/usermodel");
-
-// Create and Save a new Message
+const Userapp = require("../app/usermodel");
+//User apis
+// Create and Save a new user
 const createuser = (req, res) => {
-    console.log(req.body);
-  const User = new App({
-    username: req.body.name,
+  console.log(req.body);
+  const User = new Userapp({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password,  
   });
@@ -15,13 +15,13 @@ const createuser = (req, res) => {
     })
  };
 
-// Find a single message with a messageId
+// Find a single user with a username
 const retrieveuser = (req, res) => {
-  App.findById(req.params.messageId)
+  Userapp.findById(req.params.username)
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "Message not found with id " + req.params.messageId,
+          message: "User not found with usernamne " + req.params.username,
         });
       }
       res.send(data);
@@ -29,12 +29,12 @@ const retrieveuser = (req, res) => {
 
 };
 
-// Update a message identified by the messageId in the request
+// Update a user identified by the username in the request
 const updateuser = (req, res) => {
-  App.findByIdAndUpdate(
-    req.params.messageId,
+  Userapp.findByIdAndUpdate(
+    req.params.username,
     {
-        username: req.body.name,
+        username: req.body.username,
         email: req.body.email,
         password: req.body.password,
     },
@@ -43,7 +43,7 @@ const updateuser = (req, res) => {
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "Message not found with id " + req.params.messageId,
+          message: "User not found with username " + req.params.username,
         });
       }
       res.send(data);
@@ -51,18 +51,19 @@ const updateuser = (req, res) => {
 
 };
 
-// Delete a message with the specified messageId in the request
+// Delete a user with the specified username in the request
 const deleteuser = (req, res) => {
-  App.findByIdAndRemove(req.params.messageId)
+  Userapp.findByIdAndRemove(req.params.username)
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "Message not found with id " + req.params.messageId,
+          message: "User not found with username " + req.params.username,
         });
       }
       res.send({ message: "Message deleted successfully!" });
     })
 };
+
 
 module.exports = {
     createuser,

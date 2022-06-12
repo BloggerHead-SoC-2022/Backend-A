@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const AppRoutes = require('./routes/routes');
+const UserRoutes = require('./routes/userroutes');
+const BlogRoutes = require('./routes/blogroutes');
 
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/bloggerhead", {
@@ -19,9 +20,10 @@ app.get('/', (req,res) => {
 
 
 app.use(express.json());
-app.use('/api',AppRoutes);
+app.use('/api',UserRoutes);
+app.use('/api',BlogRoutes);
 
 
-app.listen(2010 , () => {
+app.listen(2000 , () => {                     //add port
     console.log("Server is running ");
 });
