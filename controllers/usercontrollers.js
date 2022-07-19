@@ -1,10 +1,15 @@
 const Userapp = require("../app/usermodel");
 //User apis
 // Create and Save a new user
-const createuser = (req, res) => {
+const createuser = async (req, res) => {
   console.log(req.body);
+  const ExistingUser = await Userapp.findOne({ email: req.body.email });
+  if(ExistingUser){
+    res.status(403).json({ "message": "EmailID already exists" })
+  } else{
   const User = new Userapp({
     username: req.body.username,
+    name: req.body.name,
     email: req.body.email,
     password: req.body.password,  
   });
@@ -13,15 +18,16 @@ const createuser = (req, res) => {
     .then((data) => {
       res.send(data);
     })
+  }
  };
 
 // Find a single user with a username
 const retrieveuser = (req, res) => {
-  Userapp.findById(req.params.username)
+  Userapp.findById(req.body.userID)
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "User not found with usernamne " + req.params.username,
+          message: "User not found with usernamne " + req.body.userID,
         });
       }
       res.send(data);
@@ -32,9 +38,10 @@ const retrieveuser = (req, res) => {
 // Update a user identified by the username in the request
 const updateuser = (req, res) => {
   Userapp.findByIdAndUpdate(
-    req.params.username,
+    req.body.userID,
     {
         username: req.body.username,
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password,
     },
@@ -43,7 +50,7 @@ const updateuser = (req, res) => {
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "User not found with username " + req.params.username,
+          message: "User not found with userID " + req.body.userID,
         });
       }
       res.send(data);
@@ -53,14 +60,14 @@ const updateuser = (req, res) => {
 
 // Delete a user with the specified username in the request
 const deleteuser = (req, res) => {
-  Userapp.findByIdAndRemove(req.params.username)
+  Userapp.findByIdAndRemove(req.body.userID)
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "User not found with username " + req.params.username,
+          message: "User not found with userID " + req.body.userID,
         });
       }
-      res.send({ message: "Message deleted successfully!" });
+      res.send({ message: "User deleted successfully!" });
     })
 };
 

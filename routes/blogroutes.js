@@ -7,5 +7,6 @@ blogrouter.route('/blogs')
         .get(BlogApp.retrieveblog)
         .delete(BlogApp.deleteblog)
         .put(BlogApp.updateblog)
+        .get(BlogApp.retrieveallblogs)
 
 module.exports = blogrouter;

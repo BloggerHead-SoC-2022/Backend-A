@@ -19,7 +19,7 @@ const createblog = (req, res) => {
   //Update a blog using blogID
   const updateblog = (req,res) => {
     Blogdata.findByIdAndUpdate(
-      req.params.blogID,
+      req.body.blogID,
       {
         title: req.body.title,
         content: req.body.content,
@@ -41,11 +41,11 @@ const createblog = (req, res) => {
   //Delete a blog using blogID
   const deleteblog = (req, res) => {
     console.log(req)
-    Blogdata.findByIdAndRemove((req.query.blogID))
+    Blogdata.findByIdAndRemove((req.body.blogID))
       .then((data) => {
         if (!data) {
           return res.status(404).send({
-            message: "Blog not found with ID " + req.query.blogID,
+            message: "Blog not found with ID " + req.body.blogID,
           });
         }
         res.send({ message: "Message deleted successfully!" });
@@ -55,11 +55,11 @@ const createblog = (req, res) => {
   
   //Retrieve a blog using blogID
   const retrieveblog = (req, res) => {
-    Blogdata.findById(req.params.blogID)
+    Blogdata.findById(req.body.blogID)
     .then((data) => {
       if (!data) {
         return res.status(404).send({
-          message: "Blog not found with blogID " + req.params.blogID,
+          message: "Blog not found with blogID " + req.body.blogID,
         });
       }
       res.send(data);
@@ -67,9 +67,22 @@ const createblog = (req, res) => {
   
   };
 
+  const retrieveallblogs = (req, res) => {
+    Blogdata.find({userID: req.body.userID})
+    .then((data) => {
+      if (!data) {
+        return res.status(404).send({
+          message: "Blog not found for the user " + req.body.userID,
+        });
+      }
+      res.send(data);
+    })
+  }
+
 module.exports = {
     createblog,
     retrieveblog,
     updateblog,
-    deleteblog
+    deleteblog,
+    retrieveallblogs
 }

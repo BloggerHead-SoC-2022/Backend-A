@@ -6,4 +6,4 @@ const blogdata = mongoose.Schema({
     userID: String,
 });
 
-module.exports = mongoose.model("Blogdata", blogdata);
+module.exports = mongoose.model("blog", blogdata);
